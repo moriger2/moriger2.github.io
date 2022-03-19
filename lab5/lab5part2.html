@@ -103,7 +103,7 @@
 
               color: getColorFor(data.properties.DIFF),
               fillColor: getColorFor(data.properties.DIFF),
-			                calcRadius(data.properties.EV),
+	      radius: calcRadius(data.properties.EV),
             }).bindPopup('<p>' + 'Electoral votes:' + data.properties.EV + '</p>');
           },
         });
