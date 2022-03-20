@@ -95,7 +95,7 @@ var coviddata = new L.geoJson(covidData, {
                 fillColor: '#800000',
                 fillOpacity: .7,
                 //radius: 10
-                radius: feature.properties.covid   
+                radius: calcRadius(feature.properties.covid)
         });
 	}
 }).addTo(map);
