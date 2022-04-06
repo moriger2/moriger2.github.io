@@ -44,10 +44,8 @@ $.getJSON("https://rshepard2.github.io/city.geojson")
 createSliderUI(info.timestamps);
            });
            function processData(data) {
-          // First, initialize the variables to hold the timestamps and min/max
-//population values
-      var timestamps = [];  // square brackets to define an array of data
-                                    // because there are multiple timestamps
+          // First, initialize the variables to hold the timestamps and min/max population values
+      var timestamps = [];  // square brackets to define an array of data because there are multiple timestamps
       var min = Infinity; // for the min, begin with largest possible value - infinity
       var max = -Infinity;// for the max, smallest possible value - negative infinity
           // Go through each row/feature of the data table
@@ -63,8 +61,8 @@ createSliderUI(info.timestamps);
          // These 3 columns are NOT recorded. Add more if you have non-data fields.
 
                       {
-          if ( $.inArray(attribute,timestamps) ===  -1) { // JQuery in.Array() method
-//searches for value within an array and return its index (or -1 if not found)
+          if ( $.inArray(attribute,timestamps) ===  -1) { // JQuery in.Array() method searches for value 
+                                                          // within an array and return its index (or -1 if not found)
          // here, the new timestamp is only added when it is not already in the array
          // triple equals === compares both type and value to see if there’s a match
           timestamps.push(attribute);
@@ -99,20 +97,18 @@ createSliderUI(info.timestamps);
                      }).on({
                         mouseover: function(e) {
                            this.openPopup();
-                           this.setStyle({fillColor: 'green'});  // fill color turns
-//green when mouseover
+                           this.setStyle({fillColor: 'green'});  // fill color turns green when mouseover
                        },
                        mouseout: function(e) {
                            this.closePopup();
-                           this.setStyle({fillColor: '#501e65'});  // fill turns
-//original color when mouseout
+                           this.setStyle({fillColor: '#501e65'});  // fill turns original color when mouseout
                        }
                    });
                  }
              }).addTo(map);
              updatePropSymbols(timestamps[0]); // this function is defined below
                                              // When loaded, the map will first show
-//proportional symbols with the first timestamp's data
+                                             //proportional symbols with the first timestamp's data
            }
            function createSliderUI(timestamps) {
   var sliderControl = L.control({ position: 'bottomleft'} ); // position of the slider
