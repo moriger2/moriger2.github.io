@@ -51,8 +51,7 @@ createSliderUI(info.timestamps);
       var min = Infinity; // for the min, begin with largest possible value - infinity
       var max = -Infinity;// for the max, smallest possible value - negative infinity
           // Go through each row/feature of the data table
-          // Note data is the variable name in the function definition -
-processData(data)
+          // Note data is the variable name in the function definition - processData(data)
       for (var feature in data.features) {
           var properties = data.features[feature].properties;
           // At each row, go through the columns/attributes to get the values
