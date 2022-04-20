@@ -37,7 +37,7 @@ minZoom: 0,
 maxZoom: 20,
 ext: 'png'
 }).addTo(map);
-$.getJSON("https://moriger2.github.io/city.geojson")
+$.getJSON("https://moriger2.github.io/Lab7/city.geojson")
            .done(function(data) {
                var info = processData(data);
                createPropSymbols(info.timestamps, data);
