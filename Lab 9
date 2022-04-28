@@ -145,11 +145,11 @@
             ]
           }
         });
-        var buildingLayer = new FeatureLayer({
+        var bikeLayer = new FeatureLayer({
           url: "https://maps.facilities.uiowa.edu/arcgis/rest/services/Features/Bikes/MapServer/5",
           });
 
-        map.addMany([vegetationLayer, buildingLayer]);
+        map.addMany([vegetationLayer, bikeLayer]);
       });
     </script>
   </head>
