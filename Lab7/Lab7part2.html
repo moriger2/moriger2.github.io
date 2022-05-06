@@ -157,15 +157,15 @@ var sliderControl = L.control.sliderControl({
        }
        return layer;
      };
-     var overlays = {
-"People of Color": firstlayer
-};
 
 var baseMaps = {
 "Historic": basemap
 };
+     var overlays = {
+"People of Color": firstlayer
+};
 
-L.control.layers(overlays, baseMaps, {collapsed:false}).addTo(map);
+L.control.layers(baseMaps, overlays, {collapsed:false}).addTo(map);
   </script>
 </body>
 </html>
