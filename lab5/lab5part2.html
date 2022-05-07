@@ -103,8 +103,8 @@
 
               color: getColorFor(data.properties.DIFF),
               fillColor: getColorFor(data.properties.DIFF),
-	      radius: calcRadius(data.properties.EV),
-            }).bindPopup('<p>' + 'Electoral votes:' + data.properties.EV + '</p>');
+	      radius: calcRadius(data.properties.EV_EV),
+            }).bindPopup('<p>' + 'Electoral votes:' + data.properties.EV_EV + '</p>');
           },
         });
         timelineControl.addTo(map);
