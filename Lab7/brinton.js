@@ -1,4 +1,4 @@
-var omaJson = [
+var omajson = [
     {
       "type" : "Feature",
       "id" : 1,
