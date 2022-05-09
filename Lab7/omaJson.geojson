@@ -1,4 +1,4 @@
-var omaJson = {
+{var omaJson = [
 "type": "FeatureCollection",
 "name": "omaJson",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
@@ -1287,5 +1287,6 @@ var omaJson = {
 { "type": "Feature", "properties": { "NAME": "Opera House", "LAT": 41.580281, "LONG": -92.374907, "time": "12/16/1908" }, "geometry": { "type": "Point", "coordinates": [ 41.580281, -92.374907 ] } },
 { "type": "Feature", "properties": { "NAME": "Opera House", "LAT": 41.178903, "LONG": -92.251849, "time": "12/17/1908" }, "geometry": { "type": "Point", "coordinates": [ 41.178903, -92.251849 ] } },
 { "type": "Feature", "properties": { "NAME": "Opera House", "LAT": 41.198372, "LONG": -92.093089, "time": "12/18/1908" }, "geometry": { "type": "Point", "coordinates": [ 41.198372, -92.093089 ] } }
+]
 ]
 }
