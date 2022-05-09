@@ -1,4 +1,4 @@
-var omadata = {
+var omaJson = [{
   "type" : "FeatureCollection",
   "features" : [
     {
@@ -23115,3 +23115,4 @@ var omadata = {
     }
   ]
 }
+]
