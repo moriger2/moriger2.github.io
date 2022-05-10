@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Final</title>
+    <link rel="stylesheet"href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.23/"></script>
+	
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+      #timeSlider {
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        bottom: 20px;
+      }
+    </style>
+    <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+	  "esri/widgets/BasemapToggle",
+      "esri/layers/FeatureLayer",
+	  "esri/layers/MapImageLayer",
+	  "esri/layers/TileLayer",
+	  "esri/widgets/LayerList",
+      "esri/widgets/TimeSlider",
+      "esri/widgets/Legend"
+    ], function (Map, MapView, BasemapToggle, FeatureLayer, MapImageLayer, TileLayer, LayerList, TimeSlider, Legend) {
+    const popupTemplate = {
+              // autocasts as new PopupTemplate()
+              title: "Well #{OBNRDID}: {Measurement} feet below ground level.",
+              content: [
+                {
+                  type: "fields",
+                  fieldInfos: [
+                    {
+                      fieldName: "WaterLevel",
+                      label: "Water Level",
+                      format: {
+                        places: 0,
+                        digitSeparator: true
+                      }},
+                      {
+                      fieldName: "start",
+                      label: "Date of Measurement",
+                    },
+                    {
+                      fieldName: "PriWellUse",
+                      label: "Well Type"
+                    }]}]};
+    const layer = new FeatureLayer({
+url:
+"https://services3.arcgis.com/U26uBjSD32d7xvm2/arcgis/rest/services/wellsfinal_XYTableToPoint2/FeatureServer",
+        outFields: ["Measurement", "WaterLevel", "start", "OBNRDID", "WaterLevel", "PriWellUse"], // used to specify what attribute fields to query
+        popupTemplate: popupTemplate
+      });
+
+		  let stream = new FeatureLayer({
+		url: "https://services3.arcgis.com/U26uBjSD32d7xvm2/arcgis/rest/services/HYDRO_MajorStream_DNR/FeatureServer"
+		});
+		  let water60 = new TileLayer({
+		url: "https://tiles.arcgis.com/tiles/U26uBjSD32d7xvm2/arcgis/rest/services/1960/MapServer",
+		});
+		  let water70 = new TileLayer({
+		url: "https://tiles.arcgis.com/tiles/U26uBjSD32d7xvm2/arcgis/rest/services/1970/MapServer",
+		});
+		  let water80 = new TileLayer({
+		url: "https://tiles.arcgis.com/tiles/U26uBjSD32d7xvm2/arcgis/rest/services/1980A/MapServer",
+		});
+		  let water90 = new TileLayer({
+		url: "https://tiles.arcgis.com/tiles/U26uBjSD32d7xvm2/arcgis/rest/services/1990A/MapServer",
+		});
+		  let water00 = new TileLayer({
+		url: "https://tiles.arcgis.com/tiles/U26uBjSD32d7xvm2/arcgis/rest/services/2000B/MapServer",
+		});
+		  let water10 = new TileLayer({
+		url: "https://tiles.arcgis.com/tiles/U26uBjSD32d7xvm2/arcgis/rest/services/2010B/MapServer",
+		});
+		  let water20 = new TileLayer({
+		url: "https://tiles.arcgis.com/tiles/U26uBjSD32d7xvm2/arcgis/rest/services/2020B/MapServer",
+		});
+      let map = new Map({
+        basemap: "hybrid",
+        layers: [water20, water10, water00, water90, water80, water70, water60, layer] //if you add more layers, separate by a comma
+      });
+
+
+      let view = new MapView({
+        map: map,
+        container: "viewDiv",
+        zoom: 10, //zoomed almost all the way out to see the globe
+        center: [-97.6, 40.8] //set this somewhere in the middle of the Pacific
+      });
+	  let basemapToggle = new BasemapToggle({
+	  view: view,
+	  nextBasemap: "vtLayer"
+	  });
+	  view.ui.add(basemapToggle, "bottom-right");
+	    let layr = new MapImageLayer({
+    url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"
+  });
+  map.add(layr);  // adds the layer to the map
+	  var layer1 = new FeatureLayer({
+	  url: "https://services3.arcgis.com/U26uBjSD32d7xvm2/arcgis/rest/services/HYDRO_MajorStream_DNR/FeatureServer",
+	  });
+	  map.add(layer1);
+	let layerList = new LayerList({
+		view: view
+		});
+		view.ui.add(layerList, {
+			position: "top-left"
+		});
+      const timeSlider = new TimeSlider({
+    container: "timeSlider",
+    view: view,
+    timeVisible: true, // show the time stamps on the timeslider
+    loop: true
+   });
+view.whenLayerView(layer).then(function (lv) {
+        // this just rounds up the time extent to full hours
+ timeSlider.fullTimeExtent = layer.timeInfo.fullTimeExtent.expandTo("hours");
+     });
+	  
+const legend = new Legend({
+        view: view
+
+      });
+
+view.ui.add(legend, "top-right"); //you can position the legend here
+
+});
+ </script>
+  </head>
+  <body>
+  <div id="viewDiv"></div>
+  <div id="timeSlider"></div>
+</body>
+</html>
