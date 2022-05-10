@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+   <head>
+    <title>Lab 8 | D3</title>
+    <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+    <script src="https://moriger2.github.io/Lab8/highway.js"></script>
+    <script src="https://moriger2.github.io/Wells.js"></script>
+    <style>
+body {
+    position: absolute;
+    font-family: "Proxima Nova", "Montserrat", sans-serif;
+}
+h1, h2 {
+    position: absolute;
+background: white;
+    left: 10px;
+    font-size: 1.3em;
+    font-weight: 100;
+}
+h2 {
+    top: 30px;
+    font-size: 1em;
+}
+.hover {
+    fill: yellow;
+}
+</style>
+   </head>
+    <body>
+      <h1>UBBNRD Well Elevation</h1>
+    <h2></h2>
+<script>
+ var width = 1800;
+ var height = 900;
+ var lowColor = '#bc2a66'
+ var highColor = '#f9f9f9'
+ var minVal = 1500
+ var maxVal = 2020
+ var ramp = d3.scaleLinear().domain([minVal,maxVal]).range([lowColor,highColor]);
+//create the SVG
+ var svg = d3.select( "body" )
+ .append( "svg" )
+ .attr( "width", width )
+ .attr( "height", height );
+// Append empty placeholder g element to the SVG
+// g will contain geometry elements
+var g = svg.append( "g" );
+
+
+var albersProjection = d3.geoAlbers()
+    .scale( 60000 )
+    .rotate( [97.6327,0] )
+    .center( [0, 40.8597493] )
+    .translate( [width/2,height/2] );
+var geoPath = d3.geoPath()
+    .projection( albersProjection );
+    //select element; bind data; append attributes; apply
+g.selectAll( "path" )
+    .data( highway.features )
+    .enter()
+    .append( "path" )
+    .attr( "fill", "#fff" )
+    .attr( "stroke", "#333")
+    .attr( "d", geoPath );
+var wells_json = svg.append( "g" );
+    wells_json.selectAll( "path" )
+    .data( wells.features )
+    .enter()
+    .append( "path" )
+    .attr( "fill", function(d) { return ramp(d.properties.Elevation) })
+    .attr( "stroke", "#333" )
+    .attr( "d", geoPath )
+    .attr("class","buildingdata")
+.on("mouseover", function(d){
+//populate h2 with "built in" & the year built field from the json
+d3.select("h2").text("Elevation: " + d.properties.Elevation + "ft");
+d3.select(this).attr("class","buildingdata hover");
+})
+//here, D3 to replace text interactively based on building data
+.on("mouseout", function(d){
+d3.select("h2").text("");
+d3.select(this).attr("class","buildingdata");
+});</script>
+</script>
+   </body>
+</html>
