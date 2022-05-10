@@ -37,7 +37,6 @@
       "esri/widgets/Legend"
     ], function (Map, MapView, BasemapToggle, FeatureLayer, MapImageLayer, TileLayer, LayerList, TimeSlider, Legend) {
     const popupTemplate = {
-              // autocasts as new PopupTemplate()
               title: "Well #{OBNRDID}: {Measurement} feet below ground level.",
               content: [
                 {
@@ -61,7 +60,7 @@
     const layer = new FeatureLayer({
 url:
 "https://services3.arcgis.com/U26uBjSD32d7xvm2/arcgis/rest/services/wellsfinal_XYTableToPoint2/FeatureServer",
-        outFields: ["Measurement", "WaterLevel", "start", "OBNRDID", "WaterLevel", "PriWellUse"], // used to specify what attribute fields to query
+        outFields: ["Measurement", "WaterLevel", "start", "OBNRDID", "WaterLevel", "PriWellUse"], 
         popupTemplate: popupTemplate
       });
 
@@ -91,15 +90,15 @@ url:
 		});
       let map = new Map({
         basemap: "hybrid",
-        layers: [water20, water10, water00, water90, water80, water70, water60, layer] //if you add more layers, separate by a comma
+        layers: [water20, water10, water00, water90, water80, water70, water60, layer] 
       });
 
 
       let view = new MapView({
         map: map,
         container: "viewDiv",
-        zoom: 10, //zoomed almost all the way out to see the globe
-        center: [-97.6, 40.8] //set this somewhere in the middle of the Pacific
+        zoom: 10,
+        center: [-97.6, 40.8] 
       });
 	  let basemapToggle = new BasemapToggle({
 	  view: view,
@@ -109,7 +108,7 @@ url:
 	    let layr = new MapImageLayer({
     url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"
   });
-  map.add(layr);  // adds the layer to the map
+  map.add(layr);  
 	  var layer1 = new FeatureLayer({
 	  url: "https://services3.arcgis.com/U26uBjSD32d7xvm2/arcgis/rest/services/HYDRO_MajorStream_DNR/FeatureServer",
 	  });
@@ -123,11 +122,11 @@ url:
       const timeSlider = new TimeSlider({
     container: "timeSlider",
     view: view,
-    timeVisible: true, // show the time stamps on the timeslider
+    timeVisible: true, 
     loop: true
    });
 view.whenLayerView(layer).then(function (lv) {
-        // this just rounds up the time extent to full hours
+       
  timeSlider.fullTimeExtent = layer.timeInfo.fullTimeExtent.expandTo("hours");
      });
 	  
@@ -136,7 +135,7 @@ const legend = new Legend({
 
       });
 
-view.ui.add(legend, "top-right"); //you can position the legend here
+view.ui.add(legend, "top-right"); 
 
 });
  </script>
