@@ -96,34 +96,32 @@ url:
 		  let water20 = new TileLayer({
 		url: "https://tiles.arcgis.com/tiles/U26uBjSD32d7xvm2/arcgis/rest/services/2020B/MapServer",
 		});
+		let layr = new MapImageLayer({
+    url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"
+  });
+
+	  var layer1 = new FeatureLayer({
+	  url: "https://services3.arcgis.com/U26uBjSD32d7xvm2/arcgis/rest/services/HYDRO_MajorStream_DNR/FeatureServer",
+	  });
       let map = new Map({
-        basemap: "hybrid",
-        layers: [water20, water10, water00, water90, water80, water70, water60, layer] //if you add more layers, separate by a comma
+        basemap: "topo",
+        layers: [water20, water10, water00, water90, water80, water70, water60, layer1, layr, layer]
       });
 
 
       let view = new MapView({
         map: map,
         container: "viewDiv",
-        zoom: 10, //zoomed almost all the way out to see the globe
-        center: [-97.6, 40.8] //set this somewhere in the middle of the Pacific
+        zoom: 10, 
+        center: [-97.6, 40.8] 
       });
 	  let basemapToggle = new BasemapToggle({
 	  view: view,
-	  nextBasemap: "vtLayer"
+	  nextBasemap: "hybrid"
 	  });
 	  view.ui.add(basemapToggle, "bottom-right");
-	    let layr = new MapImageLayer({
-    url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"
-  });
-  		  let stream = new FeatureLayer({
-		url: "https://services3.arcgis.com/U26uBjSD32d7xvm2/arcgis/rest/services/HYDRO_MajorStream_DNR/FeatureServer"
-		});
-  map.add(layr);  // adds the layer to the map
-	  var layer1 = new FeatureLayer({
-	  url: "https://services3.arcgis.com/U26uBjSD32d7xvm2/arcgis/rest/services/HYDRO_MajorStream_DNR/FeatureServer",
-	  });
-	  map.add(layer1);
+
+
 	let layerList = new LayerList({
 		view: view
 		});
@@ -156,7 +154,7 @@ const legend = new Legend({
 
       });
 
-view.ui.add(legend, "top-right"); //you can position the legend here
+view.ui.add(legend, "top-right"); 
 
 });
  </script>
